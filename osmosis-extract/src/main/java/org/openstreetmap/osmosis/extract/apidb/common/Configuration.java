@@ -28,6 +28,12 @@ public class Configuration {
 	private static final String KEY_USER = "user";
 	private static final String KEY_PASSWORD = "password";
 	private static final String KEY_DB_TYPE = "dbType";
+
+	// PGC
+	private static final String KEY_SSL = "ssl";
+	private static final String KEY_SSL_FACTORY = "sslFactory";
+	
+	
 	private static final String KEY_INTERVAL_LENGTH = "intervalLength";
 	private static final String KEY_LAG_LENGTH = "lagLength";
 	private static final String KEY_CHANGE_FILE_BEGIN_FORMAT = "changeFileBeginFormat";
@@ -140,6 +146,24 @@ public class Configuration {
 		return DatabaseType.fromString(getProperty(KEY_DB_TYPE));
 	}
 
+	// PGC
+	/**
+	 * Returns the 0database ssl factory class.
+	 * 
+	 * @return The database ssl factory
+	 */
+	public String getSslFactory() {
+		return properties.getProperty(KEY_SSL_FACTORY);
+	}
+	
+	/**
+	 * Returns the database ssl mode.
+	 * 
+	 * @return The database ssl mode
+	 */
+	public boolean getSsl() {
+		return Boolean.parseBoolean(properties.getProperty(KEY_SSL));
+	}
 
 	/**
 	 * Returns the duration of each changeset interval.
@@ -219,7 +243,7 @@ public class Configuration {
 	 */
 	public DatabaseLoginCredentials getDatabaseLoginCredentials() {
 		return new DatabaseLoginCredentials(getHost(), getDatabase(), getUser(), getPassword(), false, false,
-				getDbType());
+				getDbType(), getSsl(), getSslFactory());
 	}
 	
 	

@@ -46,7 +46,9 @@ public class DatabaseUtilities {
         credentials = new DatabaseLoginCredentials(DatabaseConstants.TASK_DEFAULT_HOST,
                 DatabaseConstants.TASK_DEFAULT_DATABASE, DatabaseConstants.TASK_DEFAULT_USER,
                 DatabaseConstants.TASK_DEFAULT_PASSWORD, DatabaseConstants.TASK_DEFAULT_FORCE_UTF8,
-                DatabaseConstants.TASK_DEFAULT_PROFILE_SQL, DatabaseConstants.TASK_DEFAULT_DB_TYPE);
+                DatabaseConstants.TASK_DEFAULT_PROFILE_SQL, DatabaseConstants.TASK_DEFAULT_DB_TYPE,
+				DatabaseConstants.TASK_DEFAULT_SSL, DatabaseConstants.TASK_DEFAULT_SSL_FACTORY
+					);
         credentialsLoader = new AuthenticationPropertiesLoader(getAuthorizationFile());
         credentialsLoader.updateLoginCredentials(credentials);
         return new DatabaseContext(credentials);

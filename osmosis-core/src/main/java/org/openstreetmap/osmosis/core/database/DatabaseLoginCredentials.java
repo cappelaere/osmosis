@@ -17,6 +17,10 @@ public class DatabaseLoginCredentials {
     private boolean profileSql;
     private DatabaseType dbType;
     
+	// PGC
+    private boolean ssl;
+	private String  sslFactory;
+
     
 	/**
 	 * Creates a new instance.
@@ -48,9 +52,13 @@ public class DatabaseLoginCredentials {
 	 *            queries to be logged to stderr.
 	 * @param dbType
 	 *            The database type.
+	 * @param ssl
+	 *            The database ssl mode.
+	 * @param sslFactory
+	 *            The database ssl factory.
 	 */
     public DatabaseLoginCredentials(String host, String database, String user, String password, boolean forceUtf8,
-            boolean profileSql, DatabaseType dbType) {
+            boolean profileSql, DatabaseType dbType, boolean ssl, String sslFactory) {
         this.host = host;
         this.database = database;
         this.user = user;
@@ -58,6 +66,10 @@ public class DatabaseLoginCredentials {
         this.forceUtf8 = forceUtf8;
         this.profileSql = profileSql;
         this.dbType = dbType;
+		
+		// PGC
+        this.ssl = ssl;
+        this.sslFactory = sslFactory;
     }
     
     
@@ -208,4 +220,39 @@ public class DatabaseLoginCredentials {
     public void setDbType(String property) {
         this.dbType = DatabaseType.fromString(property);
     }
+	
+	// PGC
+    /**
+	 * Updates the database ssl mode.
+	 * 
+	 * @param ssl
+	 *            The database ssl mode.
+	 */
+	public void setSsl(boolean ssl) {
+		this.ssl = ssl;
+	}
+    /**
+     * Return database ssl mode.
+     * 
+     * @return ssl mode
+     */
+	public boolean getSsl() { return ssl; }
+	
+    /**
+	 * Updates the database ssl factory.
+	 * 
+	 * @param sslFactory
+	 *            The database ssl factory property.
+	 */
+	public void setSslFactory(String sslFactory) {
+		this.sslFactory = sslFactory;
+	}
+    /**
+     * Return database ssl factory.
+     * 
+     * @return database ssl factory
+     */
+	public String getSslFactory() {
+		return sslFactory;
+	}
 }

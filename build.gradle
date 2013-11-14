@@ -21,7 +21,8 @@ subprojects {
 	// Load the project version dynamically from Git.  For release builds, don't add a suffix.
 	def versionSuffix = "RELEASE".equals(osmosisBuildType) ? '' : '-' + osmosisBuildType
 	version = 'git describe --always --dirty'.execute().in.text.trim() + versionSuffix
-
+	version = "0.43.1-20-PGC"
+	
 	// Enable access to artefact dependency repositories.
 	repositories {
 		// Standard Maven repository.

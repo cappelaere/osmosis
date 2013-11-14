@@ -46,6 +46,17 @@ public final class DatabaseConstants {
      */
     public static final String TASK_ARG_PASSWORD = "password";
 
+	// PGC
+    /**
+     * The task argument for specifying the ssl connection mode.
+     */
+    public static final String TASK_ARG_SSL 		= "ssl";
+	
+    /**
+     * The task argument for specifying the ssl factory class.
+     */
+    public static final String TASK_ARG_SSL_FACTORY = "sslFactory";
+
     /**
      * The task argument for specifying whether schema version validation should be performed.
      */
@@ -86,6 +97,18 @@ public final class DatabaseConstants {
      * The default password for a database connection.
      */
     public static final DatabaseType TASK_DEFAULT_DB_TYPE = DatabaseType.POSTGRESQL;
+
+	// PGC
+	
+    /**
+     * The default ssl mode for a database connection.
+     */
+    public static final boolean TASK_DEFAULT_SSL = false;
+	
+    /**
+     * The default ssl factory for a database connection.
+     */
+    public static final String TASK_DEFAULT_SSL_FACTORY = null;
 
     /**
      * The default password for a database connection.

@@ -85,13 +85,21 @@ public final class DataSourceManager implements Releasable {
 			} catch (ClassNotFoundException e) {
 				throw new OsmosisRuntimeException("Unable to find database driver.", e);
 			}
+
+			// PGC
+		   java.util.Properties props = new java.util.Properties();
+		   props.setProperty("user", credentials.getUser());
+		   props.setProperty("password", credentials.getPassword());
+		   props.setProperty("ssl", Boolean.toString(credentials.getSsl()));
+		   props.setProperty("sslFactory", credentials.getSslFactory());
 			
 			return DriverManager.getConnection(
 				"jdbc:postgresql://" + credentials.getHost() + "/"
 				+ credentials.getDatabase(),
 		    	// + "?logLevel=2"
-				credentials.getUser(),
-				credentials.getPassword()
+				//PGC credentials.getUser(),
+				//PGC credentials.getPassword()
+				props
 		    );
 			
 		} catch (SQLException e) {

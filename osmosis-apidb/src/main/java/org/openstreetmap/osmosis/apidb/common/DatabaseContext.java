@@ -98,14 +98,22 @@ public class DatabaseContext {
     private Connection getPostgresConnection() {
         Connection newConnection = null;
         try {
-            LOG.finer("Creating a new database connection.");
+			LOG.finer("Creating a new database connection.");
 
-            newConnection = DriverManager.getConnection(
+			// PGC
+		   java.util.Properties props = new java.util.Properties();
+		   props.setProperty("user", loginCredentials.getUser());
+		   props.setProperty("password", loginCredentials.getPassword());
+		   props.setProperty("ssl", Boolean.toString(loginCredentials.getSsl()));
+		   props.setProperty("sslFactory", loginCredentials.getSslFactory());
+ 		
+		   newConnection = DriverManager.getConnection(
             		"jdbc:postgresql://" + loginCredentials.getHost() + "/"
                     + loginCredentials.getDatabase(), // + "?logLevel=2"
-                    loginCredentials.getUser(),
-                    loginCredentials.getPassword()
-            );
+                    // PGC loginCredentials.getUser(),
+                    // PGC loginCredentials.getPassword()
+					props
+			);
 
             newConnection.setAutoCommit(autoCommit);
 

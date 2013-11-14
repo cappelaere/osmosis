@@ -1,3 +1,7 @@
+## PGC CHANGES
+	Added support for SSL connection to POSTGRES database via JDBC
+	ssl=true sslFactory=XX
+	
 Osmosis is a command line Java application for processing Open Street Map
 (http://www.openstreetmap.org) data.
 

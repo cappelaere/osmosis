@@ -61,12 +61,21 @@ public class DatabaseContext {
 	
 	private Connection getConnectionFromDriverManager() {
 		try {
+			// PGC
+		   java.util.Properties props = new java.util.Properties();
+		   props.setProperty("user", loginCredentials.getUser());
+		   props.setProperty("password", loginCredentials.getPassword());
+		   props.setProperty("ssl", Boolean.toString(loginCredentials.getSsl()));
+		   props.setProperty("sslFactory", loginCredentials.getSslFactory());
+		   
+		   
 			return DriverManager.getConnection(
 				"jdbc:postgresql://" + loginCredentials.getHost() + "/"
-				+ loginCredentials.getDatabase(),
+				+ loginCredentials.getDatabase(), 
 		    	// + "?logLevel=2"
-		    	loginCredentials.getUser(),
-		    	loginCredentials.getPassword()
+		    	// PGC loginCredentials.getUser(),
+		    	// PGC loginCredentials.getPassword()
+				props // PGC
 		    );
 			
 		} catch (SQLException e) {

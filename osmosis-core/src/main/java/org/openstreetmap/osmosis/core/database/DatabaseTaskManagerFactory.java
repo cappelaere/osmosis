@@ -26,7 +26,10 @@ public abstract class DatabaseTaskManagerFactory extends TaskManagerFactory {
         loginCredentials = new DatabaseLoginCredentials(DatabaseConstants.TASK_DEFAULT_HOST,
                 DatabaseConstants.TASK_DEFAULT_DATABASE, DatabaseConstants.TASK_DEFAULT_USER,
                 DatabaseConstants.TASK_DEFAULT_PASSWORD, DatabaseConstants.TASK_DEFAULT_FORCE_UTF8,
-                DatabaseConstants.TASK_DEFAULT_PROFILE_SQL, DatabaseConstants.TASK_DEFAULT_DB_TYPE);
+                DatabaseConstants.TASK_DEFAULT_PROFILE_SQL, DatabaseConstants.TASK_DEFAULT_DB_TYPE,
+					//PGC
+				DatabaseConstants.TASK_DEFAULT_SSL, DatabaseConstants.TASK_DEFAULT_SSL_FACTORY
+					);
 
         // If an authentication properties file has been supplied, load override
         // values from there.
@@ -55,6 +58,12 @@ public abstract class DatabaseTaskManagerFactory extends TaskManagerFactory {
                 loginCredentials.getProfileSql()));
         loginCredentials.setDbType(getStringArgument(taskConfig, DatabaseConstants.TASK_ARG_DB_TYPE, loginCredentials
 				.getDbType().toString()));
+
+		// PGC
+        loginCredentials.setSsl(getBooleanArgument(taskConfig, DatabaseConstants.TASK_ARG_SSL, 
+			loginCredentials.getSsl()));
+        loginCredentials.setSslFactory(getStringArgument(taskConfig, DatabaseConstants.TASK_ARG_SSL_FACTORY, 
+			loginCredentials.getSslFactory()));
 
         return loginCredentials;
     }

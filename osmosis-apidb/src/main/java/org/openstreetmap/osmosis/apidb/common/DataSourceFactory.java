@@ -4,12 +4,14 @@ package org.openstreetmap.osmosis.apidb.common;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.openstreetmap.osmosis.core.OsmosisRuntimeException;
 import org.openstreetmap.osmosis.core.database.DatabaseLoginCredentials;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Produces data sources based on a set of database credentials.
  */
 public final class DataSourceFactory {
+    private static final Logger LOG = Logger.getLogger(DataSourceFactory.class.getName());
 	
 	/**
 	 * This class cannot be instantiated.
@@ -32,10 +34,20 @@ public final class DataSourceFactory {
 		dataSource = new BasicDataSource();
 		
         switch (credentials.getDbType()) {
-        case POSTGRESQL:
+        case POSTGRESQL:			
+			
         	dataSource.setDriverClassName("org.postgresql.Driver");
-        	dataSource.setUrl("jdbc:postgresql://" + credentials.getHost() + "/" + credentials.getDatabase()
-        			/*+ "?loglevel=2"*/);
+			String url = "jdbc:postgresql://" + credentials.getHost() + "/" + credentials.getDatabase();
+			if ( credentials.getSsl()) {
+				url += "?ssl=true";
+				if( credentials.getSslFactory() != null ) {
+					url +="&sslfactory="+credentials.getSslFactory();
+				}
+			}
+			
+			LOG.finest("Connecting to url:"+url);
+				
+        	dataSource.setUrl(url);
         	break;
         case MYSQL:
         	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
